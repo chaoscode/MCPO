@@ -1,0 +1,2 @@
+# MCPO with config editor
+This docker compose file was designed to run with dockge. It includes a web based text editor for modifying the config.json file that MCPO runs. Make sure you change the password from "changeme" to something secure.
