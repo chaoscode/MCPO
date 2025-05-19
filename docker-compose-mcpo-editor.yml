@@ -4,15 +4,16 @@ services:
     container_name: mcpo-config-downloader
     volumes:
       - config-data:/tmp/config
-    restart: "no"
+    restart: no
     command: >
       sh -c "
         apk add --no-cache wget &&
         if [ ! -f /tmp/config/config.json ]; then
           wget -O /tmp/config/config.json https://raw.githubusercontent.com/chaoscode/MCPO/main/config.example.json
-        fi
+        fi &&
+        # Ensure proper permissions for the web editor
+        chmod 666 /tmp/config/config.json
       "
-
   # Web text editor for config.json
   config-editor:
     image: lscr.io/linuxserver/code-server:latest
@@ -21,7 +22,8 @@ services:
     ports:
       - 18020:8443
     volumes:
-      - config-data:/config/workspace
+      # Mount the config data directly to the workspace so it's immediately accessible
+      - config-data:/config/workspace/config
       - editor-data:/config
     environment:
       - PUID=1000
@@ -29,14 +31,16 @@ services:
       - TZ=Etc/UTC
       - PASSWORD=changeme
       - SUDO_PASSWORD=changeme
+      # Set the default folder to open
+      - DEFAULT_WORKSPACE=/config/workspace/config
     depends_on:
-      - config-downloader
-
+      config-downloader:
+        condition: service_completed_successfully
   mcpo:
     image: ghcr.io/open-webui/mcpo:main
     container_name: mcpo
     restart: unless-stopped
-    network_mode: host  # Use host networking for simplicity
+    network_mode: host # Use host networking for simplicity
     volumes:
       - config-data:/app/config
     env_file:
@@ -44,7 +48,8 @@ services:
     environment:
       - MCPO_API_KEY=${MCPO_API_KEY:-test}
     depends_on:
-      - config-downloader
+      config-downloader:
+        condition: service_completed_successfully
     healthcheck:
       test: CMD wget --quiet --tries=1 --spider http://localhost:18021/docs || exit 1
       interval: 30s
@@ -61,7 +66,6 @@ services:
       - "18021"
       - --api-key
       - ${MCPO_API_KEY:-test}
-
 volumes:
-  config-data:
-  editor-data:
+  config-data: null
+  editor-data: null
