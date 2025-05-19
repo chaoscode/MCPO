@@ -1,2 +1,24 @@
-# MCPO with web based config editor
-This docker compose file was designed to run with dockge. It includes a web based text editor for modifying the config.json file that MCPO runs. Make sure you change the password from "changeme" to something secure. The config editor runs on port 18020 and the MCPO server runs on port 18021.
+# MCPO Docker Compose with Web-Based Config Editor
+This Docker Compose configuration is optimized for Dockge deployment and includes an integrated web-based text editor for managing MCPO's config.json file.
+Key Features:
+
+Built-in web editor for real-time configuration editing
+JSON validation to prevent syntax errors
+Persistent configuration storage via Docker volumes
+
+Important Security Notes:
+
+Change the default password from "changeme" to a secure password before deployment
+Update the MCPO_API_KEY from the default "test" value to a strong, unique API key
+
+Service Ports:
+
+Config Editor: http://your-server-ip:18020
+MCPO Server: http://your-server-ip:18021
+
+Quick Start:
+
+Update the password and MCPO_API_KEY in the compose file
+Deploy using Dockge
+Access the config editor to customize your MCPO settings
+Restart MCPO container after making configuration changes
