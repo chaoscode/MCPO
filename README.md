@@ -22,3 +22,6 @@ Update the password and MCPO_API_KEY in the compose file
 Deploy using Dockge
 Access the config editor to customize your MCPO settings
 Restart MCPO container after making configuration changes
+
+Notes:
+After editing the config, you will need to restart MCPO
