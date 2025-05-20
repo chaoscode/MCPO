@@ -8,8 +8,7 @@ Persistent configuration storage via Docker volumes
 
 Important Security Notes:
 
-Change the default password from "changeme" to a secure password before deployment
-Update the MCPO_API_KEY from the default "test" value to a strong, unique API key
+Change the default values from "changeme" to a secure value before deployment in the .env file
 
 Service Ports:
 
