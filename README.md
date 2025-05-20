@@ -21,3 +21,6 @@ Update the config in the .env file
 Deploy services
 Access the config editor to customize your MCPO settings
 Restart MCPO container after making configuration changes
+
+
+This compose file uses the image for MCPO from https://github.com/open-webui/mcpo
