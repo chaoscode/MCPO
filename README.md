@@ -18,10 +18,7 @@ MCPO Server: http://your-server-ip:18021
 
 Quick Start:
 
-Update the password and MCPO_API_KEY in the compose file
-Deploy using Dockge
+Update the config in the .env file
+Deploy services
 Access the config editor to customize your MCPO settings
 Restart MCPO container after making configuration changes
-
-Notes:
-After editing the config, you will need to restart MCPO
